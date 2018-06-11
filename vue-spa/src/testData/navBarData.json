@@ -1,0 +1,42 @@
+{
+  "menu": [
+        {
+            "id": "item1",
+            "url": "/item1",
+            "class": "",
+            "text": "хуй1"
+        },
+        {
+            "id": "item2",
+            "url": "/item2",
+            "class": "",
+            "text": "хуй2"
+        },
+        {
+            "id": "item3",
+            "url": "/item3",
+            "class": "",
+            "text": "хуй3"
+        },
+        {
+            "id": "item4",
+            "url": "/item4",
+            "class": "none",
+            "text": "хуй4",
+            "childrens": [
+                    {
+                        "id": "item5",
+                        "url": "/item5",
+                        "class": "",
+                        "text": "хуй5"
+                    },
+                    {
+                        "id": "item6",
+                        "url": "/item7",
+                        "class": "active",
+                        "text": "хуй8"
+                    }
+            ]
+        }
+        ]
+}

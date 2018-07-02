@@ -1,95 +1,56 @@
 <template>
   <div id="app">
-    <header>
-    <navBar></navBar>
-    </header>
-    <main>
-      <aside class="sidebar">
-        <router-link
-          v-for="post in posts"
-          active-class="is-active"
-          class="link"
-          :to="{ name: 'post', params: { id: post.id } }">
-          {{post.id}}. {{post.title}}
-        </router-link>
-      </aside>
-      <div class="content">
-        <router-view></router-view>
-      </div>
-    </main>
+      <router-view></router-view>
   </div>
 </template>
-
-<script>
-  import NavBar from './components/navBar.vue'
-  import axios from 'axios'
-  //import Login from './components/Login.vue'
-  export default {
-    data () {
-      return {
-        posts: [],
-        endpoint: 'https://jsonplaceholder.typicode.com/posts/',
-      }
-    },
-    created() {
-      this.getAllPosts();
-    },
-    methods: {
-      getAllPosts() {
-        axios.get(this.endpoint)
-          .then(response => {
-            this.posts = response.data;
-          })
-          .catch(error => {
-            console.log('-----error-------');
-            console.log(error);
-          })
-      }
-    },
-    components: {NavBar},
-  }
-</script>
 
 <style lang="scss">
   body {
     margin: 0;
     padding: 0;
   }
+
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
   }
+
   h1, h2 {
     font-weight: normal;
   }
+
   ul {
     list-style-type: none;
     padding: 0;
   }
+
   li {
     display: inline-block;
     margin: 0 10px;
   }
+
   header {
     position: fixed;
     top: 0;
     width: 100%;
-    min-height: 90px;
+    min-height: 60px;
     border-bottom: 1px solid #42b983;
     text-align: center;
     background: #ffffff;
   }
+
   main {
     display: flex;
-    height: calc(100vh - 90px);
+    height: calc(100vh - 60px);
     max-width: 1200px;
-    margin-top: 90px;
+    margin-top: 60px;
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
   }
+
   aside {
     flex: 1 0 30%;
     height: 100%;
@@ -99,12 +60,14 @@
     box-sizing: border-box;
     border-right: 1px solid #42b983;
   }
+
   .content {
     flex: 1 1 70%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
+
   .link {
     display: block;
     text-decoration: none;

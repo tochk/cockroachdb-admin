@@ -11,6 +11,13 @@
           <label for="inputPassword">Password</label>
           <input v-model="password" type="password" id="inputPassword" class="form-control" required>
         </div>
+        <div class="input-field" v-show="error.length !== 0">
+          <div class="col s12">
+           <span class="red-text">
+            <strong>{{ error }}</strong>
+           </span>
+          </div>
+        </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
     </div>
@@ -20,31 +27,40 @@
 <script>
   import {AUTH_REQUEST} from '../../store/actions/auth'
 
+
   export default {
     name: 'Login',
     data() {
       return {
         username: '',
-        password: ''
+        password: '',
+        error: ''
       }
     },
+    // computed: {
+    //
+    // },
     methods: {
-      submit() {
-        console.log(this.login)
-        console.log(this.password)
-      },
-      login: function () {
-        const { username, password } = this
-        this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
-          this.$router.push('/')
+      login: async function () {
+        const {username, password} = this
+        let vm = this
+        await this.$store.dispatch(AUTH_REQUEST, {username, password}).then(() => {
+          vm.error = ''
+
+          console.log(password)
+        }).catch(err => {
+          console.log(err)
+          vm.error = err.message.split(',');
+          vm.error = vm.error[0]
         })
+        this.$router.push('/')
       },
       logout: function () {
         this.$store.dispatch(AUTH_LOGOUT)
           .then(() => {
             this.$router.push('/login')
           })
-      }
+      },
     }
   }
 </script>
@@ -57,7 +73,7 @@
     height: 100vh;
     justify-content: center;
     align-items: center;
-    .login-wrapper{
+    .login-wrapper {
       margin-top: -150px;
     }
   }

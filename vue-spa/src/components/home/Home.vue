@@ -9,6 +9,7 @@
           v-for="post in posts"
           active-class="is-active"
           class="link"
+          :key="post.id"
           :to="{ name: 'post', params: { id: post.id } }">
           {{post.id}}. {{post.title}}
         </router-link>
@@ -24,6 +25,7 @@
   import NavBar from '../navigation/navBar.vue'
   import axios from 'axios'
   //import Login from './components/Login.vue'
+  //import store from '../../store/modules/auth'
   export default {
     data () {
       return {

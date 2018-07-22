@@ -72,7 +72,7 @@ module.exports = {
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      'jquery': 'vue-spa/node_modules/jquery/dist/jquery.js'
+      // 'jquery': 'vue-spa/node_modules/jquery/dist/jquery.js'
     },
     extensions: ['*', '.js', '.vue', '.json']
   },

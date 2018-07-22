@@ -37,17 +37,14 @@
         error: ''
       }
     },
-    // computed: {
-    //
-    // },
+
     methods: {
       login: async function () {
         const {username, password} = this
         let vm = this
+        console.log(password)
         await this.$store.dispatch(AUTH_REQUEST, {username, password}).then(() => {
           vm.error = ''
-
-          console.log(password)
         }).catch(err => {
           console.log(err)
           vm.error = err.message.split(',');

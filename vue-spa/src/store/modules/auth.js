@@ -1,6 +1,6 @@
 /* eslint-disable promise/param-names */
 import {AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT} from '../actions/auth'
-import {USER_REQUEST, TEST_TOKEN} from '../actions/user'
+import {USER_REQUEST} from '../actions/user'
 // import axios from 'axios'
 
 const state = {
@@ -16,13 +16,10 @@ const getters = {
 }
 
 const actions = {
-  [TEST_TOKEN]:() =>{
-
-  },
   [AUTH_REQUEST]: ({commit, dispatch}, user) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
-      fetch('http://localhost:5003/api/connect/', {
+      fetch('http://localhost:5001/api/connect/', {
         method: 'POST',
         cache: 'no-cache',
         mode: 'cors',

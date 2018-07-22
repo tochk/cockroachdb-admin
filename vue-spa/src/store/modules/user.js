@@ -1,4 +1,4 @@
-import {USER_REQUEST, USER_ERROR, USER_SUCCESS, TEST_TOKEN} from '../actions/user'
+import {USER_REQUEST, USER_ERROR, USER_SUCCESS, } from '../actions/user'
 // import apiCall from '../../utils/api'
 import Vue from 'vue'
 import {AUTH_ERROR, AUTH_LOGOUT, AUTH_SUCCESS} from '../actions/auth'

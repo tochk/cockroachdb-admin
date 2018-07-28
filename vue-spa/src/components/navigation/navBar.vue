@@ -7,14 +7,8 @@
           <li v-for="data in posts" :class=data.class>
             <a :id=data.id :href=data.url>{{data.text}}</a>
           </li>
-          <li v-if="isProfileLoaded">
-            <router-link to="/account">{{name}}</router-link>
-          </li>
           <li v-if="isAuthenticated" @click="logout">
             <span class="logout">Logout</span>
-          </li>
-          <li v-if="!isAuthenticated && !authLoading">
-            <router-link to="/login">Logout</router-link>
           </li>
         </ul>
       </div>
@@ -44,10 +38,9 @@
     },
 
     computed: {
-      ...mapGetters(['getProfile', 'isAuthenticated', 'isProfileLoaded']),
+      ...mapGetters(['isAuthenticated']),
       ...mapState({
         authLoading: state => state.auth.status === 'loading',
-        name: state => `${state.user.profile.title} ${state.user.profile.name}`,
       })
     },
     mounted() {

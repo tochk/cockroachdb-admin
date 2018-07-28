@@ -5,8 +5,9 @@ import Auth from '../components/authentication/Auth'
 import Home from '../components/home/Home.vue'
 import dataBaseList from '../components/dataBaseList/dataBaseList.vue'
 import tablesList from '../components/tablesList/tablesList'
+import tablesView from '../components/tableView/tableView'
+import NotFoundComponent from '../components/notFoundComponent/NotFoundComponent'
 import store from '../store'
-import request from '../utils/request'
 import {AUTH_LOGOUT} from '../store/actions/auth'
 import {DATABASES_REQUEST} from '../store/actions/databases'
 
@@ -28,7 +29,7 @@ const ifAuthenticated = async (to, from, next) => {
 
       if (res instanceof Error)
         throw new Error(res)
-         //console.log(res)
+      //console.log(res)
       return res
     })
     .catch((err) => {
@@ -37,7 +38,7 @@ const ifAuthenticated = async (to, from, next) => {
         .then(() => {
           next('/login')
         })
-     //console.log(err)
+      //console.log(err)
       return err
     })
 
@@ -49,6 +50,7 @@ const ifAuthenticated = async (to, from, next) => {
 }
 export default new Router({
   routes: [
+
     {
       path: '/login',
       name: 'auth',
@@ -60,6 +62,7 @@ export default new Router({
       name: 'home',
       component: Home,
       children: [
+
         {
           path: 'post/:id',
           name: 'post',
@@ -67,10 +70,10 @@ export default new Router({
           props: true
         },
         {
-          path: '/:dbName',
+          path: 'db/:dbName',
           name: 'tableList',
           component: tablesList,
-          props: true
+          props: true,
         },
         {
           path: '/databasesList',
@@ -78,9 +81,16 @@ export default new Router({
           component: dataBaseList,
           props: true,
         },
+        {
+          path: '/db/:dbName/table/:tableName',
+          name: 'tableView',
+          component: tablesView,
+          props: true
+        }
       ],
       beforeEnter: ifAuthenticated
     },
+    {path: '/*', component: NotFoundComponent},
   ],
   mode: 'history'
 })

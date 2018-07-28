@@ -8,5 +8,6 @@ export const DROP_DATABASE = 'DROP_DATABASE'
 export const TABLES_REQUEST = 'TABLES_REQUEST'
 export const TABLES_SUCCESS = 'TABLES_SUCCESS'
 export const TABLES_ERROR = 'TABLES_ERROR'
+export const TABLE_DROP = 'TABLE_DROP'
 
 

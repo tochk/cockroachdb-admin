@@ -1,5 +1,6 @@
+import pathAPI from './pathAPI'
 const request = async (url, params, resolve, reject) => {
-    return await fetch(`http://localhost:5001/${url}`, {
+    return await fetch(`${pathAPI}${url}`, {
       method: 'POST',
       cache: 'no-cache',
       mode: 'cors',

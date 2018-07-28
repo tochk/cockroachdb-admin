@@ -7,9 +7,9 @@
       <aside class="sidebar">
         <router-link :to="{name: 'dataBaseList'}">Добавить базу</router-link>
         <ul class="dblist">
-          <li v-for="db in dataBases">
+          <li v-for="(db, index) in dataBases">
             <div class="name">
-              <div @click.prevent.once="getTablses(db.name)"
+              <div @click.prevent.once="getTablses(db.name, index)"
                    @click.prevent='() => {
                    if (db.showed) db.showed = false
                    else db.showed = true
@@ -24,7 +24,14 @@
               </router-link>
             </div>
             <ul class="table-lists" v-if="db.showed">
-              <li v-for="table in db.tables">{{ table.table }}</li>
+              <li v-for="table in db.tables" >
+                <router-link
+                  :key="table"
+                  :to="{name: 'tableView', params: {tableName: table, dbName:db.name }}"
+                  class="link">
+                {{ table }}
+                </router-link>
+              </li>
             </ul>
           </li>
         </ul>
@@ -49,6 +56,7 @@
 <script>
   import NavBar from '../navigation/navBar.vue'
   import {TABLES_REQUEST, SET_CURRENT_DATABASE} from '../../store/actions/databases'
+  import Vue from 'vue'
 
 
   export default {
@@ -70,14 +78,14 @@
         });
         // console.log(typeof this.dataBases)
       },
-      async getTablses(e) {
+      async getTablses(e, index) {
         this.$store.commit(SET_CURRENT_DATABASE, e.trim())
+        // console.log(this.$store.getters.getCurrentDataBasesName)
         const err = await this.$store.dispatch(TABLES_REQUEST)
-        this.dataBases = this.dataBases.map((el) => {
-          if (el.name == e.trim()) {
-            return {'name': el.name, 'tables': this.$store.getters.getCurrentDataBasesTableList, 'showed': true}
-          }
-        })
+        const newDBList = {'name': e.trim(), 'tables': this.$store.getters.getCurrentDataBasesTableList, 'showed': true}
+        Vue.set(this.dataBases, index, newDBList)
+
+
       }
     },
     components: {NavBar},
@@ -104,6 +112,10 @@
         font-size: 25px;
       }
     }
+    li{
+      display: block;
+    }
+
     .link {
       display: inline-block;
       cursor: pointer;

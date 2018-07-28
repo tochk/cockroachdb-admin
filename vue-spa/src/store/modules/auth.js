@@ -1,7 +1,6 @@
 /* eslint-disable promise/param-names */
 import {AUTH_REQUEST, AUTH_ERROR, AUTH_SUCCESS, AUTH_LOGOUT} from '../actions/auth'
-import {USER_REQUEST} from '../actions/user'
-// import axios from 'axios'
+import requestUrl from '../../utils/pathAPI'
 
 const state = {
   token: localStorage.getItem('user-token') || '',
@@ -19,7 +18,7 @@ const actions = {
   [AUTH_REQUEST]: ({commit, dispatch}, user) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_REQUEST)
-      fetch('http://localhost:5001/api/connect/', {
+      fetch(`${requestUrl}api/connect/`, {
         method: 'POST',
         cache: 'no-cache',
         mode: 'cors',
@@ -29,10 +28,8 @@ const actions = {
       }).then(resp => {
         if (resp.token) {
           localStorage.setItem('user-token', resp.token)
-          dispatch(USER_REQUEST).then(() => {
-            commit(AUTH_SUCCESS, resp.token)
-            resolve(resp.token)
-          })
+          commit(AUTH_SUCCESS, resp.token)
+          resolve(resp.token)
         } else {
           const err = [resp.err, resp.code, resp.human]
           throw new Error(err)

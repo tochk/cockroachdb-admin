@@ -41,8 +41,8 @@ const actions = {
       params,
       (resolve) => {
 
-        commit(TABLE_DATA_SUCCESS, resolve)
-        return resolve
+        commit(TABLE_DATA_SUCCESS, resolve.rows)
+        return resolve.rows
       },
       (err) => {
         commit(TABLE_DATA_ERROR)

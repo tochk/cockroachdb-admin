@@ -8,7 +8,7 @@ import {
 } from '../actions/tabledata'
 import databaseStorange from './databases'
 
-const state = {status: '', currentTable:'', tableData:[]}
+const state = {status: '', currentTable: '', tableData: []}
 
 const getters = {
   getStatusDataTable: state => state.tableData,
@@ -22,12 +22,13 @@ const actions = {
     // console.log(payload)
     let params
     if (payload.offset || payload.limit) {
-     params= {'token': localStorage.getItem('user-token'),
+      params = {
+        'token': localStorage.getItem('user-token'),
         'database': payload.db,
         'table': state.currentTable,
-         'limit': payload.limit,
-         'offset': payload.offset
-     }
+        'limit': payload.limit,
+        'offset': payload.offset
+      }
     } else {
       params = {
         'token': localStorage.getItem('user-token'),
@@ -42,7 +43,10 @@ const actions = {
       (resolve) => {
 
         commit(TABLE_DATA_SUCCESS, resolve.rows)
-        return resolve.rows
+        return {
+          rows: resolve.rows,
+          count: resolve.count
+        }
       },
       (err) => {
         commit(TABLE_DATA_ERROR)

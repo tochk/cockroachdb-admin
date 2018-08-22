@@ -4,7 +4,7 @@
       <navBar></navBar>
     </header>
     <main>
-      <aside class="sidebar">
+      <aside class="sidebar" >
         <router-link :to="{name: 'dataBaseList'}">Добавить базу</router-link>
         <ul class="dblist">
           <li v-for="(db, index) in dataBases">
@@ -20,6 +20,7 @@
               <router-link
                 :key="db.name"
                 :to="{ name: 'tableList', params: { dbName: db.name, db:db } }"
+
                 class="link"> {{ db.name }}
               </router-link>
             </div>
@@ -27,7 +28,7 @@
               <li v-for="table in db.tables" >
                 <router-link
                   :key="table"
-                  :to="{name: 'tableView', params: {tableName: table, dbName:db.name }}"
+                  :to="{name: 'tableView', params: {tableName: table, dbName:db.name}}"
                   class="link">
                 {{ table }}
                 </router-link>
@@ -35,19 +36,9 @@
             </ul>
           </li>
         </ul>
-
-        <!--<router-link-->
-        <!--v-for="post in posts"-->
-        <!--active-class="is-active"-->
-        <!--class="link"-->
-        <!--:key="post.id"-->
-        <!--:to="{ name: 'post', params: { id: post.id } }">-->
-        <!--{{post.id}}. {{post.title}}-->
-        <!--</router-link>-->
-
       </aside>
       <div class="content">
-        <router-view></router-view>
+        <router-view v-on:remove-table-from-list="getTablses($event)"></router-view>
       </div>
     </main>
   </div>
@@ -80,12 +71,12 @@
       },
       async getTablses(e, index) {
         this.$store.commit(SET_CURRENT_DATABASE, e.trim())
-        // console.log(this.$store.getters.getCurrentDataBasesName)
         const err = await this.$store.dispatch(TABLES_REQUEST)
         const newDBList = {'name': e.trim(), 'tables': this.$store.getters.getCurrentDataBasesTableList, 'showed': true}
-        Vue.set(this.dataBases, index, newDBList)
-
-
+        if (index !== 'undefined') Vue.set(this.dataBases, index, newDBList)
+      },
+      testCallback(e){
+        console.log(e.tableName, e.index)
       }
     },
     components: {NavBar},

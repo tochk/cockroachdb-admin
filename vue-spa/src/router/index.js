@@ -6,6 +6,7 @@ import Home from '../components/home/Home.vue'
 import dataBaseList from '../components/dataBaseList/dataBaseList.vue'
 import tablesList from '../components/tablesList/tablesList'
 import tablesView from '../components/tableView/tableView'
+import showIndex from '../components/showIndex/showIndex'
 import NotFoundComponent from '../components/notFoundComponent/NotFoundComponent'
 import store from '../store'
 import {AUTH_LOGOUT} from '../store/actions/auth'
@@ -85,7 +86,13 @@ export default new Router({
           path: '/db/:dbName/table/:tableName',
           name: 'tableView',
           component: tablesView,
-          props: true
+          props: true,
+        },
+        {
+          path: '/db/:dbName/table/:tableName/index',
+          name: 'showIndex',
+          component: showIndex,
+          props: true,
         }
       ],
       beforeEnter: ifAuthenticated

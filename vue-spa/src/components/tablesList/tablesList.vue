@@ -18,7 +18,7 @@
             {{ tl }}
           </router-link>
         </td>
-        <td><a class="dropDB">
+        <td><a v-on:click="removeTable(tl); $emit('remove-table-from-list', name)" class="dropDB">
           <!--@click="removeTable(tl)"-->
           Удалить</a></td>
       </tr>

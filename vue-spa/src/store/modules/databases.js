@@ -92,7 +92,7 @@ const actions = {
   [TABLE_DROP]: async ({commit, dispatch}, tableName) => {
     commit(DATABASES_REQUEST)
     return await request(
-      'api/tables/drop',
+      'api/tables/drop/',
       {'token': localStorage.getItem('user-token'), 'database': state.currentDb, 'table': tableName},
       (resolve) => {
         resolve = resolve.map(el => {
